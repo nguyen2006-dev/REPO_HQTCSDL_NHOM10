@@ -1,0 +1,3 @@
+@model LoginForm
+@{ViewData["Title"]="Đăng nhập";}
+<div class="form panel"><p class="eyebrow">Welcome back</p><h1>Đăng nhập</h1><form method="post" asp-action="Login"><div asp-validation-summary="All"></div><label asp-for="Email">Email</label><input asp-for="Email" autocomplete="username"/><label asp-for="Password">Mật khẩu</label><input asp-for="Password" autocomplete="current-password"/><button>Đăng nhập</button></form><p>Chưa có tài khoản? <a href="/Account/Register">Đăng ký</a></p></div>

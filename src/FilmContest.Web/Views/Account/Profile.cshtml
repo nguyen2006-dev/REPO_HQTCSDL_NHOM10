@@ -1,0 +1,2 @@
+@model DataTable
+<h1>Hồ sơ của tôi</h1><div class="panel form"><p>@Model.Rows[0]["Email"] · @Model.Rows[0]["Role"]</p><form method="post" asp-action="Profile"><label>Họ tên</label><input name="name" value="@Model.Rows[0]["Name"]" required maxlength="120"/><button>Lưu hồ sơ</button></form></div>

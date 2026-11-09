@@ -1,0 +1,5 @@
+@model DataTable
+@{ViewData["Title"]="Nơi những thước phim gặp nhau";}
+@if(!string.IsNullOrWhiteSpace((string?)ViewBag.Banner)){<div class="alert">@ViewBag.Banner</div>}
+<section class="hero"><div><p class="eyebrow">Analog stories · New perspectives</p><h1>Mỗi khung hình.<br/>Một câu chuyện.</h1><p>Khám phá cuộc thi nhiếp ảnh phim, gửi tác phẩm của bạn và lưu giữ những góc nhìn đáng nhớ.</p><div class="actions"><a class="button" href="/Contests">Khám phá cuộc thi ↗</a><a class="button secondary" href="/Home/Archive">Xem triển lãm</a></div><small>35mm / 120 / Những câu chuyện từ ánh sáng</small></div><div class="film-art" aria-label="Minh họa ống kính máy ảnh"><div class="lens"></div></div></section>
+<p class="eyebrow">Open calls & community</p><h2>Cuộc thi gần đây</h2><div class="grid">@foreach(DataRow c in Model.Rows){<article class="card"><span class="badge">@c["Status"]</span><h3>@c["Title"]</h3><p>Hạn nhận bài: @c["Closes"] UTC</p><a href="/Contests/Detail/@c["ContestId"]">Khám phá cuộc thi →</a></article>}</div>@if(Model.Rows.Count==0){<p class="empty">Chưa có cuộc thi được mở. Ban tổ chức có thể tạo cuộc thi sau khi đăng nhập.</p>}

@@ -1,0 +1,3 @@
+@model DataTable
+@{ViewData["Title"]="Cuộc thi";}
+<p class="eyebrow">Find your next frame</p><h1>Khám phá cuộc thi.</h1><div class="grid">@foreach(DataRow c in Model.Rows){<article class="card"><span class="badge">@c["Status"]</span><h3>@c["Title"]</h3><p>@c["Opens"] — @c["Closes"] UTC</p><p>Tối đa @c["MaxEntries"] ảnh / người</p><a class="button" href="/Contests/Detail/@c["ContestId"]">Xem chi tiết</a></article>}</div>

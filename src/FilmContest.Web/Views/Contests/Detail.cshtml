@@ -1,0 +1,6 @@
+@model DataTable
+@{var c=Model.Rows[0];ViewData["Title"]=c["Title"];}
+<span class="badge">@c["Status"]</span><h1>@c["Title"]</h1><p>@c["Opens"] — @c["Closes"] UTC · Tối đa @c["MaxEntries"] bài / người</p>
+<div class="grid"><section class="panel"><h2>Thể lệ</h2><p class="rules">@c["Rules"]</p><h3>Hạng mục</h3>@foreach(DataRow r in ((DataTable)ViewBag.Categories).Rows){<p>@r["Name"]</p>}</section><section class="panel"><h2>Tiêu chí chấm</h2>@foreach(DataRow r in ((DataTable)ViewBag.Criteria).Rows){<p>@r["Name"] · @((decimal)r["Weight"]*100)% · thang 10</p>}
+@if(User.IsInRole("Participant")&&c["Status"].ToString()=="Open"){<form method="post" asp-action="Register" asp-route-id="@c["ContestId"]"><button>Đăng ký dự thi</button></form><p><a href="/Studio/Submit/@c["ContestId"]">Đã đăng ký? Nộp ảnh →</a></p>}
+@if(c["Status"].ToString()=="Published"){<a class="button" href="/Contests/Results/@c["ContestId"]">Xem kết quả</a>}</section></div>
