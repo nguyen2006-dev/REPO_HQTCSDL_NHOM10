@@ -1,0 +1,8 @@
+PASS All T-SQL scripts parse as SQL Server 2022
+PASS Password hash accepts original and rejects wrong password
+PASS JWT includes role and revocation version, expires in two hours
+PASS Upload rejects undersized photo
+PASS Valid photo stored privately, hash stable, image can reopen
+PASS Portrait photo accepted
+PASS Asset path traversal rejected
+7 passed, 0 failed. SQL execution/E2E require separate SQL Server.

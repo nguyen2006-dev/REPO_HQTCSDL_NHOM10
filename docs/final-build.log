@@ -1,0 +1,5 @@
+Command: dotnet build src/FilmContest.Web -c Release --nologo
+.NET SDK 8.0.427
+Build succeeded.
+0 Warning(s)
+0 Error(s)

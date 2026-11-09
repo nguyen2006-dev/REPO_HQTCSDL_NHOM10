@@ -1,0 +1,40 @@
+[
+  {
+    "path": "/Account/Login",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Account/Register",
+    "status": 200,
+    "final": "/Account/Register",
+    "csrf": true
+  },
+  {
+    "path": "/Home/Error",
+    "status": 500
+  },
+  {
+    "path": "/Admin",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Judge",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Studio",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "POST login without CSRF",
+    "status": 400
+  }
+]
