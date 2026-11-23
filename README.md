@@ -3,14 +3,14 @@
 ASP.NET Core MVC / C# / ADO.NET / SQL Server / T-SQL. Giao diện tiếng Việt, responsive, 4 vai trò. JWT trong cookie HttpOnly; các POST MVC dùng antiforgery. Đây là bộ mã nguồn và tài liệu triển khai. Không có website công khai, tài khoản đám mây hoặc detector AI đã được kích hoạt sẵn.
 
 ## Đọc theo thứ tự
-
-1. `docs/START_HERE_VI.md`: cài đặt trên Windows, tạo database và chạy website.
-2. `docs/PROJECT_REPORT.md`: phân tích, thiết kế, ERD, quy tắc và mô tả dữ liệu.
-3. `docs/DEMO.md`: kịch bản trình diễn đủ 4 vai trò.
-4. `docs/REQUIREMENTS.md`: đối chiếu yêu cầu, phần phụ thuộc dịch vụ.
-5. `docs/DEPLOYMENT.md`: Docker, Azure SQL, Blob, HTTPS, backup.
-6. `docs/VALIDATION.md` và `tests/README.md`: bằng chứng kiểm thử và các giới hạn.
-7. `ai-service/README.md`: kích hoạt detector và phân loại ảnh bằng mô hình thật.
+1. [Cài đặt](docs/START_HERE_VI.md)
+2. [Báo cáo kỹ thuật](docs/PROJECT_REPORT.md)
+3. [Kịch bản demo](docs/DEMO.md)
+4. [Requirements và tiêu chí nghiệm thu](docs/REQUIREMENTS.md)
+5. [Checklist hoàn thiện và nộp bài](docs/CHECKLIST.md)
+6. [Triển khai](docs/DEPLOYMENT.md)
+7. [Kết quả kiểm tra](docs/VALIDATION.md) và [hướng dẫn test](tests/README.md)
+8. [AI service](ai-service/README.md)
 
 ## Chạy nhanh sau khi cài .NET 8 SDK và SQL Server 2022
 
