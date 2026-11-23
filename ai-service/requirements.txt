@@ -1,0 +1,8 @@
+# Resolve and lock versions in the target deployment after model compatibility testing.
+fastapi>=0.115,<1
+uvicorn>=0.32,<1
+pillow>=11.3
+transformers>=4.57,<5
+torch>=2.6
+torchvision>=0.21
+safetensors>=0.6

@@ -1,32 +1,32 @@
 # Kết quả kiểm tra thực tế
 
-Ngày: 26/10/2026. Môi trường Linux x64; .NET SDK 8.0.427. Đây là ghi nhận kiểm tra, không phải chứng nhận hoàn tất nghiệm thu.
+Ngày: 23/11/2026. Môi trường Windows x64, .NET SDK 9.0.320 (các ứng dụng target .NET 8), SQL Server 2025 Enterprise Evaluation. Kết quả dưới đây là những gì đã chạy trên bản repo này; không phải chứng nhận production.
 
-## Đã chạy
+## Đã chạy và đạt
 
-- Restore dependency thành công. Thư viện xử lý ảnh được chuyển sang SkiaSharp 3.119.4 và NativeAssets.Linux.NoDependencies cùng phiên bản; không bàn giao ImageSharp cũ có cảnh báo bảo mật/license.
-- Build ASP.NET Core MVC: thành công, 0 lỗi. Build bao gồm Razor Views.
-- Build Release của website: thành công, 0 warnings, 0 errors trên bản đã kiểm tra; xem final-build.log đi kèm cho lần build cuối.
-- Chạy FilmContest.Checks: 7 passed, 0 failed. Kiểm tra parser toàn bộ SQL scripts, password hashing, claims/expiry JWT, từ chối ảnh nhỏ, lưu/đọc/xóa ảnh, ảnh dọc và path traversal.
-- Website khởi động local thành công. HTTP /Account/Login và /Account/Register trả 200 có antiforgery token; /Admin, /Judge, /Studio khi chưa đăng nhập chuyển về Login; POST Login thiếu antiforgery trả 400; /Home/Error trả 500 như thiết kế.
-- Python AI adapter: kiểm tra cú pháp AST thành công, chưa chạy model.
+- `dotnet build FilmContest.sln -c Release`: thành công, 0 warning, 0 error; build website, DbTool và checks.
+- `dotnet build src/FilmContest.Web`: thành công, 0 warning, 0 error.
+- `dotnet run --project tests/FilmContest.Checks -- .`: 7 passed, 0 failed. Bao gồm parser T-SQL 160, password hashing, JWT claims/expiry, xử lý ảnh và path traversal.
+- `dotnet run --project scripts/FilmContest.DbTool -- test .`: workflow SQL trên SQL Server thật đạt; kiểm tra weighted score, ranking, archive, audit và hai trường hợp từ chối trái quyền. Fixture của workflow được rollback.
+- `py -3.15 tests/http_smoke.py`: đạt. Login/Register trả 200, khu vực riêng chuyển hướng khi chưa đăng nhập, POST thiếu antiforgery trả 400.
+- `py -3.15 -m compileall -q ai-service`: cú pháp Python đạt; chưa tải dependencies hoặc khởi chạy model.
+- Các script schema/procedure/security/demo đã được chạy trên SQL Server trong quá trình kiểm tra dự án. Hỗ trợ SQL Server 2022+ được khai báo; lần chạy môi trường này dùng SQL Server 2025.
 
-## Không thể chạy trong môi trường này
+## Chưa chạy
 
-SQL Server Linux native đã được tải và thử khởi động nhưng SQLPAL dừng trước trạng thái ready, cùng lỗi môi trường /proc. Vì vậy:
+- Chưa thử đầy đủ giao diện với bốn tài khoản/vai trò và dữ liệu ảnh thực.
+- Chưa kiểm thử tải hoặc hai request đồng thời trên cùng hạn mức.
+- Chưa chạy detector AI/CLIP. Adapter chỉ được kiểm tra cú pháp; chưa có số liệu accuracy, precision/recall hay false-positive.
+- Chưa cấu hình Azure Blob, triển khai cloud, backup/restore thực tế.
+- Docker chưa được cài trên máy kiểm tra nên chưa xác thực `docker compose config` hoặc chạy container.
+- Chưa có ứng dụng Flutter/APK; sản phẩm hiện tại là website responsive.
 
-- Chưa thực thi DDL/procedures trên một SQL Server hoạt động.
-- Chưa chạy tests/01_workflow.sql và chưa xác nhận các foreign key/quy tắc/điểm số bằng DB thực.
-- Chưa chạy giao diện end-to-end với 4 vai trò và dữ liệu thật.
-- Chưa kiểm thử concurrency/load, Blob Azure, cloud deployment hoặc model detector/CLIP.
-- Không có URL production hoặc APK. Không có dữ liệu giả mạo kết quả kiểm thử hoặc độ chính xác AI.
+Parser kiểm tra cú pháp T-SQL không thay thế workflow DB; workflow test chỉ bao phủ đường đi mẫu và hai ca từ chối, không thay cho kiểm tra tải hoặc ma trận toàn bộ ràng buộc.
 
-Parser SQL chỉ chứng minh không có lỗi cú pháp parser phát hiện; không chứng minh bảng tồn tại đúng runtime, quyền đầy đủ, procedure chạy đúng hay đồng thời an toàn.
+## Trước khi nghiệm thu vận hành
 
-## Để nghiệm thu
-
-1. Trên máy Windows/SQL Server hoặc Docker, chạy DbTool init và test theo START_HERE_VI.md.
-2. Chạy ma trận UI và demo; ghi output và ảnh chụp thực tế.
-3. Chọn/cấu hình AI detector, chạy bộ đánh giá ảnh phim, ghi model revision và sai số.
-4. Cấu hình private Azure Blob và host HTTPS nếu yêu cầu cloud; kiểm tra quyền và backup/restore.
-5. Đối chiếu REQUIREMENTS.md, không đánh dấu mục phụ thuộc chưa chạy là hoàn thành.
+1. Chạy các kịch bản UI trong `tests/README.md` với bốn tài khoản riêng.
+2. Bổ sung kiểm thử concurrency và các biên nghiệp vụ như duplicate hash, hạn mức và nhiều vòng.
+3. Chọn detector, ghi model revision và đo false-positive/false-negative trên ảnh phim/ảnh scan.
+4. Nếu yêu cầu cloud/mobile native, cấu hình và kiểm thử Azure Blob, triển khai HTTPS hoặc bổ sung ứng dụng Flutter.
+5. Chụp minh chứng thật, thêm thông tin nhóm/lớp/giảng viên vào báo cáo.

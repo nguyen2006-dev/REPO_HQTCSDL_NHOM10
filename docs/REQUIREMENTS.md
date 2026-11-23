@@ -14,15 +14,15 @@
 | Đăng ký người dự thi | Registrations | Có mã và build |
 | Film roll/frame metadata | FilmRolls/Frames/Submissions | Có mã và build |
 | Upload ảnh và tracking | Assets, Studio, Feedback | Kiểm thử lưu/đọc ảnh local đã đạt |
-| Kiểm tra hạn, file, metadata | Form validation, Assets, usp_Submit | File checks đạt; SQL nghiệp vụ cần SQL Server |
+| Kiểm tra hạn, file, metadata | Form validation, Assets, usp_Submit | File checks đạt; SQL workflow trên SQL Server đạt, chưa phủ mọi biên |
 | Duyệt bài và lịch sử | SubmissionReviews/audit | Có mã và build |
-| Trùng chính xác | SHA-256 UNIQUE trong contest | Có mã; SQL constraint cần kiểm thử thực thi |
+| Trùng chính xác | SHA-256 UNIQUE trong contest | UNIQUE constraint có trong schema; test workflow chạy, nhưng duplicate case chưa được assert riêng |
 | Ảnh gần giống | dHash-64, latest 2.000 images | Có mã; chưa đánh giá recall/precision |
 | Nhận diện ảnh AI | AIService + Python classifier adapter | Cần detector/model/HTTPS endpoint; chưa chạy mô hình |
 | Từ khóa/phân loại | CLIP adapter, AICheckResults Tags | Cần tải mô hình; gợi ý, không thay hạng mục tác giả |
 | Phân công giám khảo | Round/submission/judge | Có mã và build |
-| Chấm theo tiêu chí, nhận xét | Scores + weighted criteria | Có mã; kiểm thử SQL thực thi còn chờ |
-| Nhiều vòng và xác nhận | JudgingRounds + Finalized | Có mã; mọi bài Approved vào mỗi vòng |
+| Chấm theo tiêu chí, nhận xét | Scores + weighted criteria | Có mã; đường chấm/tổng hợp đã qua SQL workflow mẫu, chưa phủ toàn bộ biên |
+| Nhiều vòng và xác nhận | JudgingRounds + Finalized | Có mã; workflow mẫu một vòng đã đạt, chưa kiểm thử nhiều vòng |
 | Tổng hợp/xếp hạng | v_RoundScores/v_Rankings | Có mã; giữ đồng điểm, dùng vòng cuối |
 | Trao giải/công bố | Awards/SubmissionAwards/usp_Publish | Có mã và build |
 | Kho số/triển lãm | v_Archive, private Assets gateway | Có mã và build |
@@ -34,6 +34,6 @@
 | Nhiều cuộc thi/chấm đồng thời | Mô hình dữ liệu theo ContestId/AssignmentId | Có mã; chưa load test |
 | Web portal và participant app | Website responsive chung theo hướng 2 | Có mã web; không có APK/Flutter |
 | Deployment | Dockerfile/compose, Azure hướng dẫn | Có cấu hình; chưa triển khai cloud |
-| Tài liệu/báo cáo | docs, ERD, test scripts, demo | Có tài liệu, cần bổ sung ảnh minh chứng và thông tin nhóm |
+| Tài liệu/báo cáo | docs, ERD, test scripts, demo | Có tài liệu và test scripts; cần bổ sung ảnh minh chứng và thông tin nhóm |
 
 Những thay đổi so với gợi ý công nghệ đề gốc: SQL Server/T-SQL thay MySQL/PostgreSQL theo yêu cầu môn; MVC thay React/API tách rời theo hướng 2 đã chọn. Trình duyệt điện thoại dùng responsive web. Nếu giảng viên bắt buộc ứng dụng mobile native riêng hoặc tất cả ứng dụng AI hoạt động thực, cần bổ sung và kiểm thử trước khi chốt hoàn thành.
