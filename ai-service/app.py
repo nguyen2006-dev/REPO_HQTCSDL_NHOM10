@@ -49,7 +49,7 @@ def analyze(body: Request, x_api_key: Annotated[str | None, Header()] = None):
             if src.width * src.height > 40_000_000:
                 raise ValueError("Too many pixels")
             image = ImageOps.exif_transpose(src).convert("RGB")
-    except (ValueError, UnidentifiedImageError, Image.DecompressionBombError) as exc:
+    except (ValueError, OSError, UnidentifiedImageError, Image.DecompressionBombError) as exc:
         raise HTTPException(400, "Invalid image") from exc
     # CPU service serializes model execution; scale workers only after measuring RAM.
     with lock:
