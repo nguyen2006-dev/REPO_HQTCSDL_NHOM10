@@ -1,71 +1,49 @@
-# FilmRoom — Nền tảng cuộc thi nhiếp ảnh phim
+## Bổ sung bản rà soát
 
-ASP.NET Core MVC / C# / ADO.NET / SQL Server / T-SQL. Giao diện tiếng Việt, responsive, 4 vai trò. JWT trong cookie HttpOnly; các POST MVC dùng antiforgery. Đây là bộ mã nguồn và tài liệu triển khai. Không có website công khai, tài khoản đám mây hoặc detector AI đã được kích hoạt sẵn.
+DbTool `test` hiện chạy cả `01_workflow.sql` và `02_regressions.sql`. Năm ca bổ sung kiểm tra trùng hash, hạn mức, lịch chấm NULL một phía, điểm ngoài thang và xác nhận quá hạn. Chạy trên database phát triển riêng bằng tài khoản DBA; fixture rollback nhưng bộ đếm identity vẫn tăng. `FilmContest.Checks` hiện có 10 kiểm tra, gồm validation và controller từ chối điểm sai trước truy cập DB. Kết quả mới xem `docs/VALIDATION_REVIEW.md`.
 
-## Đọc theo thứ tự
-1. [Cài đặt](docs/START_HERE_VI.md)
-2. [Báo cáo kỹ thuật](docs/PROJECT_REPORT.md)
-3. [Kịch bản demo](docs/DEMO.md)
-4. [Requirements và tiêu chí nghiệm thu](docs/REQUIREMENTS.md)
-5. [Checklist hoàn thiện và nộp bài](docs/CHECKLIST.md)
-6. [Triển khai](docs/DEPLOYMENT.md)
-7. [Kết quả kiểm tra](docs/VALIDATION.md) và [hướng dẫn test](tests/README.md)
-8. [AI service](ai-service/README.md)
+# Kiểm thử
 
-## Chạy nhanh sau khi cài .NET 8 SDK và SQL Server 2022
-
-Mở PowerShell tại thư mục FilmContest. Chỉ khởi tạo trên một database mới; không chạy lại 01_schema.sql trên database đã có bảng.
+Chạy tại thư mục FilmContest:
 
 ```powershell
-$env:FILM_DB_ADMIN='Server=localhost;Database=master;Integrated Security=True;Encrypt=True;TrustServerCertificate=True'
-$env:FILM_APP_PASSWORD='YOUR_UNIQUE_APP_SQL_PASSWORD_AT_LEAST_16_CHARS'
-dotnet run --project scripts/FilmContest.DbTool -- init .
-dotnet run --project scripts/FilmContest.DbTool -- test .
-```
-
-Nếu instance là SQLEXPRESS, thay `localhost` bằng `localhost\SQLEXPRESS`. Đăng nhập SQL filmapp cần SQL Server bật Mixed Mode; có thể dùng Windows Authentication cho website chạy dưới tài khoản đã được cấp quyền phù hợp (xem hướng dẫn).
-
-```powershell
-cd src/FilmContest.Web
-dotnet user-secrets set 'ConnectionStrings:SqlServer' 'Server=localhost;Database=FilmContest;User ID=filmapp;Password=YOUR_APP_SQL_PASSWORD;Encrypt=True;TrustServerCertificate=True'
-dotnet user-secrets set 'Jwt:Key' 'YOUR_RANDOM_SECRET_AT_LEAST_32_BYTES'
-dotnet user-secrets set 'Bootstrap:AdminEmail' 'admin@example.com'
-dotnet user-secrets set 'Bootstrap:AdminPassword' 'YOUR_UNIQUE_ADMIN_PASSWORD_AT_LEAST_12_CHARS'
-dotnet dev-certs https --trust
-dotnet run
-```
-
-Mở URL HTTPS hiển thị trong console (launch profile mặc định https://localhost:7080). Chưa cấu hình secret thì ứng dụng chủ động dừng với thông báo thay vì chạy bằng khóa mặc định. Sau khi admin đầu tiên được tạo, xóa Bootstrap secrets; đăng ký các tài khoản còn lại rồi cấp quyền trong /Admin.
-
-## Những gì website thực hiện
-
-- Cuộc thi nháp/mở/chấm/công bố, thể lệ, lịch nhận bài và lịch chấm UTC, hạng mục và trọng số.
-- Sao chép cấu hình cuộc thi thành mẫu cho sự kiện mới.
-- Đăng ký, cuộn phim, khung hình, JPEG/PNG, metadata, theo dõi bài và phản hồi.
-- Duyệt bài có lý do và audit; kiểm tra hạn, số bài, quyền sở hữu và trùng byte.
-- Nhiều vòng chấm, phân công từng bài/từng vòng, điểm 0–10, khóa sau xác nhận.
-- Điểm có trọng số, thứ hạng theo hạng mục ở vòng cuối, giữ đồng hạng; trao giải thủ công có kiểm tra và công bố.
-- Kho ảnh đoạt giải công khai sau công bố, ảnh chưa công bố được kiểm soát quyền.
-- Thống kê SQL, xuất CSV chống công thức bảng tính, quản lý vai trò và danh mục phim.
-- dHash tìm ảnh gần giống; adapter và service Python cho phát hiện ảnh AI/gắn nhãn. Cần chọn detector, tải trọng số và cấu hình HTTPS.
-- Local storage để phát triển, Azure Blob private container khi triển khai.
-
-## Kiểm thử và build
-
-```powershell
-dotnet build src/FilmContest.Web -c Release
 dotnet run --project tests/FilmContest.Checks -- .
 ```
 
-Chạy SQL integration trên SQL Server riêng: DbTool mode `test`. Không suy diễn kiểm tra cú pháp SQL thành kiểm thử nghiệp vụ. Tài khoản runtime dùng film_runtime, không dùng sa/dbo khi vận hành.
+Kiểm tra tự động: parse toàn bộ SQL bằng Microsoft ScriptDom T-SQL 160; mật khẩu băm; claims và thời hạn JWT; từ chối ảnh nhỏ; lưu/đọc/xóa JPEG; chặn path traversal. Đây không phải bằng chứng toàn bộ nghiệp vụ SQL đã chạy đúng.
 
-## Cấu trúc
+Sau khi tạo database trên SQL Server, chạy `tests/01_workflow.sql` bằng SSMS với tài khoản DBA trên database thử nghiệm. Script chạy quy trình thực và rollback dữ liệu; assert điểm 8, hạng 1, kho ảnh và audit; kiểm tra từ chối đăng ký trái quyền, chấm trái phân công. SQL tests không cần tệp ảnh thật vì đang kiểm tra tầng dữ liệu.
 
-- src/FilmContest.Web: Controllers, Models, Services, Razor Views, CSS, Dockerfile.
-- database: schema, procedure, management, permission, demo, backup/restore.
-- scripts/FilmContest.DbTool: tạo database và chạy integration test bằng SqlClient.
-- tests: checks chạy tự động và SQL workflow thực.
-- ai-service: optional FastAPI + Transformers model adapter.
-- docs: hướng dẫn, thiết kế, đối chiếu, kiểm thử, triển khai.
+## Kịch bản kiểm thử giao diện
 
-Không chứa mật khẩu hoạt động, API key, ảnh của người dùng hay trọng số mô hình. Không đưa .env, App_Data, user-secrets hoặc connection string thật lên GitHub.
+| Mã | Thao tác | Mong đợi |
+|---|---|---|
+| UI01 | Đăng ký email mới / email trùng | Thành công / báo lỗi |
+| UI02 | Sai mật khẩu, sau đó đúng | Từ chối / đăng nhập |
+| UI03 | Participant mở /Admin | HTTP 403 |
+| UI04 | Không đăng nhập mở /Judge | Chuyển đến đăng nhập |
+| UI05 | Gửi POST thiếu antiforgery | HTTP 400 |
+| UI06 | Đăng ký hai lần cùng cuộc thi | Không tạo bản ghi thứ hai |
+| UI07 | Nộp JPEG trước khi đăng ký | Từ chối, xóa tệp tạm đã lưu |
+| UI08 | Nộp quá hạn / vượt MaxEntries | Từ chối |
+| UI09 | Nộp cùng ảnh byte-identical hai lần | Không tạo bài trùng trong cuộc thi |
+| UI10 | Chọn cuộn phim của người khác bằng sửa request | Từ chối |
+| UI11 | Tải ảnh bài chưa công bố bằng tài khoản khác | HTTP 403 |
+| UI12 | Giám khảo sửa AssignmentId sang bài không được giao | Không được chấm |
+| UI13 | Xác nhận khi thiếu tiêu chí | Từ chối |
+| UI14 | Sửa điểm sau xác nhận | Từ chối |
+| UI15 | Công bố khi còn vòng mở hoặc chưa trao giải | Từ chối |
+| UI16 | Khóa user đang đăng nhập | Request tiếp theo mất quyền |
+| UI17 | AI endpoint hỏng / chưa cấu hình | Không có kết quả giả; bài vẫn lưu |
+| UI18 | Đăng nhập >10 lần/phút/IP | HTTP 429 |
+| UI19 | Hai giám khảo chấm đồng thời | Lưu điểm độc lập |
+| UI20 | Hai tab nộp đồng thời với MaxEntries=1 | Chỉ một bài được ghi |
+| UI21 | Nhập tiêu đề bắt đầu =SUM(...) rồi xuất CSV | Được escape thành văn bản |
+| UI22 | Tạo vòng 2 khi vòng 1 chưa đóng | Từ chối |
+| UI23 | Chấm ngoài lịch chấm thi | Từ chối |
+
+UI20: dùng database thử nghiệm, tạo contest MaxEntries=1, đăng ký một tài khoản; gửi đồng thời hai ảnh khác nhau. Stored procedure giữ UPDLOCK/HOLDLOCK trên contest, tuần tự hóa kiểm tra hạn mức. Xác nhận SELECT COUNT(*)=1. Chưa thay cho bài kiểm thử tải diện rộng.
+
+Các kết quả đã thực sự chạy được ghi trong docs/VALIDATION.md. Không đánh dấu các kịch bản UI ở trên là pass nếu chưa chạy.
+
+HTTP smoke không cần SQL Server: `dotnet build src/FilmContest.Web`, rồi `python tests/http_smoke.py`. Kiểm tra login/register, redirect các khu vực riêng và CSRF. Cần cổng 5088 trống.
