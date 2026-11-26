@@ -1,0 +1,165 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\tests\\FilmContest.Checks\\FilmContest.Checks.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\FilmContest.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\FilmContest.Web.csproj",
+        "projectName": "FilmContest.Web",
+        "projectPath": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\FilmContest.Web.csproj",
+        "packagesPath": "C:\\Users\\Mhuuu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Mhuuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.23.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.11, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[5.2.2, )"
+            },
+            "SkiaSharp": {
+              "target": "Package",
+              "version": "[3.119.4, )"
+            },
+            "SkiaSharp.NativeAssets.Linux.NoDependencies": {
+              "target": "Package",
+              "version": "[3.119.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.320/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\tests\\FilmContest.Checks\\FilmContest.Checks.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\tests\\FilmContest.Checks\\FilmContest.Checks.csproj",
+        "projectName": "FilmContest.Checks",
+        "projectPath": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\tests\\FilmContest.Checks\\FilmContest.Checks.csproj",
+        "packagesPath": "C:\\Users\\Mhuuu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\tests\\FilmContest.Checks\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Mhuuu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\FilmContest.Web.csproj": {
+                "projectPath": "C:\\Users\\Mhuuu\\Downloads\\REPO_HQTCSDL_NHOM10-fixed (1)\\REPO_HQTCSDL_NHOM10-fixed\\REPO_HQTCSDL_NHOM10-fixed\\src\\FilmContest.Web\\FilmContest.Web.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.SqlServer.TransactSql.ScriptDom": {
+              "target": "Package",
+              "version": "[161.8901.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.320/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
