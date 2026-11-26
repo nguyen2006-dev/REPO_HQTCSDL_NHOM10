@@ -17,10 +17,10 @@ services:
     profiles: ["app"]
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__SqlServer: ${APP_SQL_CONNECTION:?Set APP_SQL_CONNECTION}
-      Jwt__Key: ${JWT_KEY:?Set JWT_KEY}
-      Bootstrap__AdminEmail: ${ADMIN_EMAIL:?Set ADMIN_EMAIL}
-      Bootstrap__AdminPassword: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD}
+      ConnectionStrings__SqlServer: ${APP_SQL_CONNECTION:-}
+      Jwt__Key: ${JWT_KEY:-}
+      Bootstrap__AdminEmail: ${ADMIN_EMAIL:-}
+      Bootstrap__AdminPassword: ${ADMIN_PASSWORD:-}
     ports: ["127.0.0.1:5080:8080"]
     volumes: ["assets:/app/App_Data"]
     depends_on:
