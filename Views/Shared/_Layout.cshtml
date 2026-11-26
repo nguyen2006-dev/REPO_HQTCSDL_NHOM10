@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>@ViewData["Title"] · FilmRoom</title><link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/></head>
+<body><header><a class="brand" href="/">▣ FILMROOM<span>CONTEST PLATFORM</span></a><nav><a href="/Contests">Cuộc thi</a><a href="/Home/Archive">Triển lãm</a>
+@if(User.IsInRole("Participant")){<a href="/Studio">Bài của tôi</a><a href="/Studio/Rolls">Cuộn phim</a>}
+@if(User.IsInRole("Organizer")||User.IsInRole("Admin")){<a href="/Organizer">Tổ chức</a>}
+@if(User.IsInRole("Judge")){<a href="/Judge">Chấm thi</a>}
+@if(User.IsInRole("Admin")){<a href="/Admin">Quản trị</a>}
+@if(User.Identity?.IsAuthenticated==true){<a href="/Account/Profile">@User.Identity.Name</a><form method="post" action="/Account/Logout">@Html.AntiForgeryToken()<button class="quiet">Thoát</button></form>}
+else{<a href="/Account/Login">Đăng nhập</a><a class="button" href="/Account/Register">Tham gia</a>}</nav></header>
+<main>@if(TempData["Error"] is string error){<div class="alert error" role="alert">@error</div>}@if(TempData["Success"] is string success){<div class="alert" role="status">@success</div>}@RenderBody()</main>
+<footer><strong>FILMROOM</strong><p>Lưu giữ chất phim. Kết nối góc nhìn.</p><small>Thời gian hệ thống: UTC. Việt Nam = UTC + 7 giờ. Quyền ảnh thuộc tác giả.</small></footer></body></html>

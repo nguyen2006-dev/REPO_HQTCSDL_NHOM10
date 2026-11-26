@@ -1,0 +1,3 @@
+@model RegisterForm
+@{ViewData["Title"]="Tạo tài khoản";}
+<div class="form panel"><p class="eyebrow">Join the community</p><h1>Bắt đầu câu chuyện.</h1><form method="post" asp-action="Register"><div asp-validation-summary="All"></div><label asp-for="Name">Họ tên</label><input asp-for="Name"/><label asp-for="Email">Email</label><input asp-for="Email" autocomplete="username"/><label asp-for="Password">Mật khẩu · tối thiểu 12 ký tự</label><input asp-for="Password" autocomplete="new-password"/><button>Tạo tài khoản người dự thi</button></form></div>

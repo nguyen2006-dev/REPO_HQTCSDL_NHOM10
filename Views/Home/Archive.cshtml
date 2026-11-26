@@ -1,0 +1,3 @@
+@model DataTable
+@{ViewData["Title"]="Triển lãm ảnh đoạt giải";}
+<p class="eyebrow">The archive</p><h1>Những góc nhìn được vinh danh.</h1><div class="grid">@foreach(DataRow r in Model.Rows){<article class="card"><img class="thumb" loading="lazy" src="/Assets/Photo/@r["SubmissionId"]" alt="@r["Title"]"/><span class="badge">@r["Award"]</span><h3>@r["Title"]</h3><p>@r["Photographer"] · @r["ContestTitle"]</p><details><summary>Thông tin ảnh phim</summary><p>@r["Stock"] · ISO @r["ISO"] · @r["Format"]<br/>@r["Camera"] / @r["Lens"]<br/>Khung @r["FrameNumber"] · @r["Location"]<br/>Lab: @r["Lab"]<br/>Scan: @r["ScanSpecs"]</p></details></article>}</div>@if(Model.Rows.Count==0){<p class="empty">Ảnh đoạt giải sẽ xuất hiện sau khi công bố kết quả.</p>}

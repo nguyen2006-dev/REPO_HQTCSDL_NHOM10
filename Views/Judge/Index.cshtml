@@ -1,0 +1,2 @@
+@model DataTable
+<h1>Bàn chấm thi.</h1><p>Chỉ hiển thị các bài được phân công cho bạn.</p><div class="grid">@foreach(DataRow r in Model.Rows){<article class="card"><span class="badge">@r["State"] · Đã xác nhận: @r["Finalized"]</span><h3>@r["Title"]</h3><p>@r["ContestTitle"] · @r["RoundName"]</p><a class="button" href="/Judge/Entry/@r["AssignmentId"]">Xem và chấm điểm</a></article>}</div>

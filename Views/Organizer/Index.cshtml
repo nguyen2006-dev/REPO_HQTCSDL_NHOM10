@@ -1,0 +1,2 @@
+@model DataTable
+<h1>Không gian tổ chức.</h1><div class="actions"><a class="button" href="/Organizer/Create">+ Tạo cuộc thi</a></div><div class="grid">@foreach(DataRow r in Model.Rows){<article class="card"><span class="badge">@r["Status"]</span><h3>@r["Title"]</h3><p>Hạn nhận bài @r["Closes"] UTC</p><a href="/Organizer/Manage/@r["ContestId"]">Quản lý cuộc thi →</a></article>}</div>

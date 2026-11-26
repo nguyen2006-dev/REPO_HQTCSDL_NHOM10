@@ -1,0 +1,2 @@
+@model DataTable
+<h1>Báo cáo cuộc thi</h1><a href="/Organizer/Manage/@ViewBag.Id">← Quản lý cuộc thi</a><table><thead><tr><th>Hạng mục</th><th>Tổng bài</th><th>Đã duyệt</th><th>Từ chối</th><th>Chờ duyệt</th></tr></thead><tbody>@foreach(DataRow r in Model.Rows){<tr><td>@r["Category"]</td><td>@r["Entries"]</td><td>@r["Approved"]</td><td>@r["Rejected"]</td><td>@r["Pending"]</td></tr>}</tbody></table><p><a class="button" href="/Organizer/Export/@ViewBag.Id">Tải bảng điểm CSV</a></p>

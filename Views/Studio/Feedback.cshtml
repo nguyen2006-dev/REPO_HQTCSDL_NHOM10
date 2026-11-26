@@ -1,0 +1,3 @@
+@model DataTable
+<h1>Phản hồi bài dự thi</h1><h2>Kiểm duyệt</h2>@foreach(DataRow r in ((DataTable)ViewBag.Reviews).Rows){<article class="card"><span class="badge">@r["Decision"]</span><p>@r["Reason"]</p><small>@r["ReviewedAt"] UTC</small></article>}
+<h2>Điểm và nhận xét</h2><p>Chỉ hiển thị sau khi công bố kết quả.</p><table><thead><tr><th>Vòng</th><th>Tiêu chí</th><th>Điểm</th><th>Nhận xét</th></tr></thead><tbody>@foreach(DataRow r in Model.Rows){<tr><td>@r["RoundName"]</td><td>@r["Criterion"]</td><td>@r["Score"]</td><td>@r["Comment"]</td></tr>}</tbody></table>

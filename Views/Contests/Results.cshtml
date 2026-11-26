@@ -1,0 +1,2 @@
+@model DataTable
+<h1>Kết quả chính thức</h1><p>Điểm là trung bình điểm có trọng số của giám khảo ở vòng cuối. Các bài đồng điểm giữ cùng hạng.</p><div class="table-wrap"><table><thead><tr><th>Hạng mục</th><th>Hạng</th><th>Tác phẩm</th><th>Tác giả</th><th>Điểm</th></tr></thead><tbody>@foreach(DataRow r in Model.Rows){<tr><td>@r["CategoryId"]</td><td>@r["Position"]</td><td>@r["Title"]</td><td>@r["Photographer"]</td><td>@r["TotalScore"]</td></tr>}</tbody></table></div><p><a href="/Home/Archive">Xem ảnh đoạt giải →</a></p>
