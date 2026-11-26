@@ -67,6 +67,7 @@ GO
 CREATE OR ALTER PROCEDURE dbo.usp_Score @Actor int,@Assignment int,@Criterion int,@Score decimal(4,2),@Comment nvarchar(1000) AS
 BEGIN SET XACT_ABORT ON;BEGIN TRAN;
  IF NOT EXISTS(SELECT 1 FROM dbo.JudgeAssignments a WITH(UPDLOCK,HOLDLOCK) JOIN dbo.JudgingRounds r ON r.RoundId=a.RoundId JOIN dbo.Contests c WITH(UPDLOCK,HOLDLOCK) ON c.ContestId=r.ContestId JOIN dbo.Criteria cr ON cr.ContestId=c.ContestId WHERE a.AssignmentId=@Assignment AND a.JudgeId=@Actor AND a.Finalized=0 AND r.State='Open' AND c.Status='Judging' AND SYSUTCDATETIME() BETWEEN c.JudgingStart AND c.JudgingEnd AND cr.CriterionId=@Criterion)THROW 51000,N'Không được chấm bài hoặc tiêu chí này.',1;
+ IF @Score IS NULL OR @Score<0 OR @Score>10 THROW 51000,N'Điểm phải từ 0 đến 10.',1;
  IF EXISTS(SELECT 1 FROM dbo.Scores WHERE AssignmentId=@Assignment AND CriterionId=@Criterion)
  UPDATE dbo.Scores SET Score=@Score,Comment=@Comment,UpdatedAt=SYSUTCDATETIME()WHERE AssignmentId=@Assignment AND CriterionId=@Criterion;
  ELSE INSERT dbo.Scores(AssignmentId,CriterionId,Score,Comment)VALUES(@Assignment,@Criterion,@Score,@Comment);COMMIT;END;
@@ -74,7 +75,7 @@ GO
 CREATE OR ALTER PROCEDURE dbo.usp_FinalizeScore @Actor int,@Assignment int AS
 BEGIN SET XACT_ABORT ON;BEGIN TRAN;
  DECLARE @Contest int;
- SELECT @Contest=r.ContestId FROM dbo.JudgeAssignments a WITH(UPDLOCK,HOLDLOCK) JOIN dbo.JudgingRounds r ON r.RoundId=a.RoundId JOIN dbo.Contests c WITH(UPDLOCK,HOLDLOCK) ON c.ContestId=r.ContestId WHERE a.AssignmentId=@Assignment AND a.JudgeId=@Actor AND a.Finalized=0 AND r.State='Open' AND c.Status='Judging';
+ SELECT @Contest=r.ContestId FROM dbo.JudgeAssignments a WITH(UPDLOCK,HOLDLOCK) JOIN dbo.JudgingRounds r ON r.RoundId=a.RoundId JOIN dbo.Contests c WITH(UPDLOCK,HOLDLOCK) ON c.ContestId=r.ContestId WHERE a.AssignmentId=@Assignment AND a.JudgeId=@Actor AND a.Finalized=0 AND r.State='Open' AND c.Status='Judging' AND SYSUTCDATETIME() BETWEEN c.JudgingStart AND c.JudgingEnd;
  IF @Contest IS NULL THROW 51000,N'Không được xác nhận bài này.',1;
  IF(SELECT COUNT(*)FROM dbo.Scores WHERE AssignmentId=@Assignment)<>(SELECT COUNT(*)FROM dbo.Criteria WHERE ContestId=@Contest)THROW 51000,N'Chưa chấm đủ tiêu chí.',1;
  UPDATE dbo.JudgeAssignments SET Finalized=1 WHERE AssignmentId=@Assignment;COMMIT;END;

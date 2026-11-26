@@ -16,7 +16,7 @@ CREATE TABLE dbo.Contests(
  Rules nvarchar(4000) NOT NULL,Opens datetime2 NOT NULL,Closes datetime2 NOT NULL,
  MaxEntries int NOT NULL CHECK(MaxEntries BETWEEN 1 AND 100),Status varchar(20) NOT NULL DEFAULT 'Draft' CHECK(Status IN('Draft','Open','Judging','Published')),
  JudgingStart datetime2 NULL,JudgingEnd datetime2 NULL,
- CreatedAt datetime2 NOT NULL DEFAULT SYSUTCDATETIME(),CONSTRAINT CK_Dates CHECK(Opens<Closes),CONSTRAINT CK_JudgingDates CHECK(JudgingStart IS NULL OR (JudgingStart>Closes AND JudgingEnd>JudgingStart)));
+ CreatedAt datetime2 NOT NULL DEFAULT SYSUTCDATETIME(),CONSTRAINT CK_Dates CHECK(Opens<Closes),CONSTRAINT CK_JudgingDates CHECK((JudgingStart IS NULL AND JudgingEnd IS NULL) OR (JudgingStart IS NOT NULL AND JudgingEnd IS NOT NULL AND JudgingStart>Closes AND JudgingEnd>JudgingStart)));
 CREATE TABLE dbo.Categories(CategoryId int IDENTITY PRIMARY KEY,ContestId int NOT NULL REFERENCES dbo.Contests(ContestId),Name nvarchar(120) NOT NULL,
  UNIQUE(ContestId,Name),UNIQUE(ContestId,CategoryId));
 CREATE TABLE dbo.Registrations(ContestId int NOT NULL REFERENCES dbo.Contests(ContestId),UserId int NOT NULL REFERENCES dbo.Users(UserId),RegisteredAt datetime2 NOT NULL DEFAULT SYSUTCDATETIME(),PRIMARY KEY(ContestId,UserId));
