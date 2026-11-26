@@ -1,3 +1,5 @@
+> Ghi chú bản sửa: nội dung dưới đây là kết quả có sẵn trong ZIP gốc, chưa được xác minh lại trên cùng môi trường. Xem VALIDATION_REVIEW.md và review-*.log cho kết quả thực tế của bản sửa.
+
 # Kết quả kiểm tra thực tế
 
 Ngày: 23/11/2026. Môi trường Windows x64, .NET SDK 9.0.320 (các ứng dụng target .NET 8), SQL Server 2025 Enterprise Evaluation. Kết quả dưới đây là những gì đã chạy trên bản repo này; không phải chứng nhận production.

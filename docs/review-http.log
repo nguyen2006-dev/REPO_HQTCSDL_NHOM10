@@ -1,0 +1,45 @@
+[
+  {
+    "path": "/health/live",
+    "status": 200
+  },
+  {
+    "path": "/Account/Login",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Account/Register",
+    "status": 200,
+    "final": "/Account/Register",
+    "csrf": true
+  },
+  {
+    "path": "/Admin",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Judge",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "/Studio",
+    "status": 200,
+    "final": "/Account/Login",
+    "csrf": true
+  },
+  {
+    "path": "POST without CSRF",
+    "status": 400
+  },
+  {
+    "path": "POST register missing password with valid CSRF",
+    "status": 200
+  }
+]
+PASS HTTP smoke checks (no SQL workflow exercised)

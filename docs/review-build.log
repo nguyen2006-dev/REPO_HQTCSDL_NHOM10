@@ -1,0 +1,11 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  FilmContest.Web -> /workspace/scratch/b651703cea7e/work/REPO_HQTCSDL_NHOM10-main/src/FilmContest.Web/bin/Release/net8.0/FilmContest.Web.dll
+  FilmContest.Checks -> /workspace/scratch/b651703cea7e/work/REPO_HQTCSDL_NHOM10-main/tests/FilmContest.Checks/bin/Release/net8.0/FilmContest.Checks.dll
+  FilmContest.DbTool -> /workspace/scratch/b651703cea7e/work/REPO_HQTCSDL_NHOM10-main/scripts/FilmContest.DbTool/bin/Release/net8.0/FilmContest.DbTool.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.58
